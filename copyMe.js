@@ -8,6 +8,14 @@
 *   Користуйтесь на здоровʼя!
 *   GL HF!
 */
+class Character {
+  constructor(energy, inventory, learnedSkills, notes = '') {
+    this.energy = energy;
+    this.inventory = inventory;
+    this.learnedSkills = learnedSkills;
+    this.notes = notes;
+  }
+}
 
 class Item {
     constructor(name, weight, price, notes = '') {
@@ -91,158 +99,250 @@ class Weapon extends Item {
     }
 }
 
-const professions = {
-    'Бандит': {
-        energy: 0,
-        inventory: [
-        ],
-        learnedSkills: [
-            'Спритність рук',
-            'Злам замків',
-            'Орієнтування в місті',
-            'Підробка',
-            'Обман',
-            'Переховування',
-            'Залякування',
-            'Володіння кинжалом',
-            'Атлетика',
-            'Увага'
-        ],
-    },
-    'Бард': {
-        energy: 5,
-        inventory: [
+function getProfessions() {
+  return {
+    'Бандит': new Character(
+      0,
+      [
+        "Шулерські дайси",
+        "Ліхтар \"Биче Око\"",
+        "Потаємна кишенька",
+        "Грабіжницькі інструменти",
+        "Стилет",
+        "Кастет",
+        "Метальні ножі",
+        "Хлороформ",
+        "Наплічна сумка"
+      ],
+      [
+        'Спритність рук',
+        'Злам замків',
+        'Орієнтування в місті',
+        'Підробка',
+        'Обман',
+        'Переховування',
+        'Залякування',
+        'Володіння кинжалом',
+        'Атлетика',
+        'Увага'
+      ]
+    ),
+    'Бард': new Character(
+      0,
+      [
+        'Дошка для покера на дайсах',
+        'Колода для Ґвинта',
+        'Кишенькове дзеркальце',
+        'Музичний інструмент',
+        'Фляга з пійлом',
+        'Кинжал',
+        'Парфюм',
+        'Поясна сумка',
+        'Піхви на стегна',
+        'Щоденник із замком'
+      ],
+      [
+        'Обман',
+        'Харизма',
+        'Публічний виступ',
+        'Розуміння людей',
+        'Переконання',
+        'Орієнтування в місті',
+        'Мистецтво',
+        'Зваблення',
+        'Етикет'
+      ],
+      'Не забудьте обрати одну мову'
+    ),
+    'Відьмак': new Character(
+      2,
+      [
+        'Сталевий відьмачий меч',
+        'Срібний відьмачий меч',
+        'Відьмачий медальйон',
+        'Формула еліксиру',
+        'Формула відвару',
+        'Формула олії',
+        'Інструменти алхіміка',
+        'Кінь',
+        'Метальні ножі',
+        'Ручний арбалет',
+        'Двошаровий гамбезон'
+      ],
+      [
+        "Увага",
+        "Дедукція",
+        "Накладення заклять",
+        "Алхімія",
+        "Ухилення/Вертлявість",
+        "Виживання в д.п",
+        "Володіння мечем",
+        "Атлетика",
+        "Переховування",
+        "Верхова їзда"
+      ],
+      'Формули (крім відвару) по 2 штуки'
+    ),
+    'Воїн': new Character(
+      0,
+      [
+        'Корд',
+        "Спис",
+        "Бойова сокира",
+        "Метальні ножі",
+        "Наплічна сумка",
+        "Кольчужний капюшон",
+        "Бригантина",
+        "Посилені штані",
+        "Арбалет",
+        "Арбалетні болти",
+        "Сталевий баклер"
+      ],
+      [
+        'Виживання в д.п',
+        'Хоробрість',
+        'Сила',
+        'Залякування',
+        'Ухилення/Вертлявість'
+      ],
+      'Не забудьте обрати 5 бойових навичок'
+    ),
+    'Жрець': new Character(
+      2,
+      [
+        "Священний символ",
+        "Знезаражуюча рідина",
+        "Інструменти алхіміка",
+        "Хірургічні інструменти",
+        "Пісочний годинник(година)",
+        "Кинжал",
+        "Кровозгортний порошок",
+        "Знебольнювальні трави",
+      ],
+      [
+        'Проведення ритуалів',
+        'Лідерство',
+        'Хоробрість',
+        'Розуміння людей',
+        'Накладення проклять',
+        'Перша допомога',
+        'Харизма',
+        'Виживання в д.п',
+        'Передача знання',
+        'Накладення заклять'
+      ],
+      'Один із варіантів спорядження - інґредієнти на 100 крон',
+    ),
 
-        ],
-        learnedSkills: [
-            'Обман',
-            'Харизма',
-            'Публічний виступ',
-            'Розуміння людей',
-            'Переконання',
-            'Орієнтування в місті',
-            'Мистецтво',
-            'Зваблення',
-            'Етикет'
-        ],
-        notes: 'Не забудьте обрати одну мову',
-    },
-    'Відьмак': {
-        energy: 2,
-        inventory: [],
-        inventory: [
-        ],
-        notes: '',
-    },
-    'Воїн': {
-        energy: 0,
-        inventory: [
-
-        ],
-        learnedSkills: [
-            'Виживання в д.п',
-            'Хоробрість',
-            'Сила',
-            'Залякування',
-            'Ухилення/Вертлявість'
-        ],
-        notes: 'Не забудьте обрати 5 бойових навичок',
-    },
-    'Жрець': {
-        energy: 2,
-        inventory: [
-
-        ],
-        learnedSkills: [
-            'Проведення ритуалів',
-            'Лідерство',
-            'Хоробрість',
-            'Розуміння людей',
-            'Накладення проклять',
-            'Перша допомога',
-            'Харизма',
-            'Виживання в д.п',
-            'Передача знання',
-            'Накладення заклять'
-        ],
-        notes: '',
-    },
-    'Лікар': {
-        energy: 0,
-        inventory: [
-
-        ],
-        learnedSkills: [
-            'Супротив запевненню',
-            'Харизма',
-            'Етикет',
-            'Розуміння людей',
-            'Виживання в д.п',
-            'Торгівля',
-            'Дедукція',
-            'Володіння кинжалом',
-            'Алхімія',
-            'Хоробрість'
-        ],
-        notes: '',
-    },
-
-    'Маг': {
-        energy: 5,
-        inventory: [
-
-        ],
-        learnedSkills: [
-            'Розуміння людей',
-            'Накладення заклять',
-            'Накладення проклять',
-            'Супротив магії',
-            'Древкове',
-            'Освіта',
-            'Проведення ритуалів',
-            'Етикет',
-            'Зваблення',
-            'Зовнішній вигляд'
-        ],
-        notes: '',
-    },
-    'Ремісник': {
-        energy: 0,
-        inventory: [
-
-        ],
-        learnedSkills: [
-            'Виготовлення',
-            'Торгівля',
-            'Атлетика',
-            'Стійкість',
-            'Сила',
-            'Орієнтування в місті',
-            'Мистецтво',
-            'Алхімія',
-            'Освіта',
-            'Переконання'
-        ],
-        notes: '',
-    },
-    'Торгаш': {
-        energy: 0,
-        inventory: [
-
-        ],
-        learnedSkills: [
-            'Харизма',
-            'Володіння кинжалом',
-            'Освіта',
-            'Орієнтування в місті',
-            'Торгівля',
-            'Переконання',
-            'Розуміння людей',
-            'Азартні ігри',
-            'Супротив запевненню'
-        ],
-        notes: 'Не забудьте обрати дві мови'
-    }
+    'Лікар': new Character(
+      0,
+      [
+        'Кровозгортний порошок',
+        'Знезаражуюча рідина',
+        'Знебольнювальні трави',
+        'Хірургічні інструменти',
+        "Письомвий інвентар",
+        "Свічки",
+        "Пісочний годинник(година)",
+        "Ковдра",
+        "Велика палатка",
+        "Кинжал",
+      ],
+      [
+        'Супротив запевненню',
+        'Харизма',
+        'Етикет',
+        'Розуміння людей',
+        'Виживання в д.п',
+        'Торгівля',
+        'Дедукція',
+        'Володіння кинжалом',
+        'Алхімія',
+        'Хоробрість'
+      ],
+      "Всі розхідники у кількості 10 штук кожний"
+    ),
+    'Маг': new Character(
+      5,
+      [
+        "Набір для макіяжу",
+        "Пісочний годинник(година)",
+        "Поясна сумка",
+        "Письмовий інвентар",
+        "Кишенькове дзеркальце",
+        "Кинжал",
+        "Посох",
+        "Піхви на стегна",
+        "Щоденник"
+      ],
+      [
+        'Розуміння людей',
+        'Накладення заклять',
+        'Накладення проклять',
+        'Супротив магії',
+        'Древкове',
+        'Освіта',
+        'Проведення ритуалів',
+        'Етикет',
+        'Зваблення',
+        'Зовнішній вигляд'
+      ],
+      'Один із варіантів спорядження - інґредієнти на 100 крон'
+    ),
+    "Ремісник": new Character(
+      0,
+      [
+        "Похілна кузня",
+        "Інструменти торговця",
+        "Залізний півторашний меч",
+        "Інструменти ремісника",
+        "Інструменти алхіміка",
+        "Пісочний годинник(година)",
+        "Невелика скриня",
+        "Булава",
+        "Замок"
+      ],
+      [
+        'Виготовлення',
+        'Торгівля',
+        'Атлетика',
+        'Стійкість',
+        'Сила',
+        'Орієнтування в місті',
+        'Мистецтво',
+        'Алхімія',
+        'Освіта',
+        'Переконання'
+      ],
+      'Один з варіантів - компоненти на 50 крон'
+    ),
+    'Торгаш': new Character(
+      0,
+      [
+        "Письмовий інвентар",
+        "Інструменти торговця",
+        "Мул",
+        "Повозка",
+        "Велика палатка",
+        "Щоденник",
+        "Арбалет",
+        "Арбалетні болти",
+        "Кинжал"
+      ],
+      [
+        'Харизма',
+        'Володіння кинжалом',
+        'Освіта',
+        'Орієнтування в місті',
+        'Торгівля',
+        'Переконання',
+        'Розуміння людей',
+        'Азартні ігри',
+        'Супротив запевненню'
+      ],
+      'Не забудьте обрати дві мови\nАрбалет і болти - один слот\nМул і поаозка - один слот\nПовозка вантажена ітемами вартістю 1000 крон'
+    ),
+  }
 }
 
 const mainVariables = {
@@ -383,34 +483,178 @@ function getAllItems() {
 }
 
 function myFunction() {
-    const doc = SpreadsheetApp.getActiveSpreadsheet();
-    const mainSheet = doc.getSheetByName("Main");
+  const doc = SpreadsheetApp.getActiveSpreadsheet();
+  const mainSheet = doc.getSheetByName("Main");
 
-    if (!mainSheet) {
-        throw new Error('Де головний шит, довбень?!');
+  if (!mainSheet) {
+    throw new Error('Де головний шит, довбень?!');
+  }
+
+  const allItems = getAllItems();
+  const professions = getProfessions();
+  const { raceRange, professionRange } = mainVariables;
+  const raceValue = mainSheet.getRange(raceRange).getValue();
+  const professionValue = mainSheet.getRange(professionRange).getValue();
+
+  if ((raceValue === 'Відьмак' && professionValue !== 'Відьмак')
+    || (raceValue !== 'Відьмак' && professionValue === 'Відьмак')) {
+    throw new Error('Відьмак він і в Темерії відьмак, довбень!!!')
+  }
+
+  console.log(`Вітаю, ти ${raceValue}-${professionValue}`);
+
+  setProfessionSpecies(professionValue, mainSheet);
+
+
+
+  function setProfessionSpecies(profession, sheet) {
+    const { energy, inventory, learnedSkills, notes } = professions[profession];
+    const { energyRange, rangesForBuilder } = mainVariables;
+
+    sheet.getRange(energyRange).setValue(energy);
+
+    setStartInventory(inventory, rangesForBuilder);
+
+    learnedSkills.forEach(skill => sheet.getRange(skills[skill]).setBackground('#FFC300'));
+    console.log(notes.length > 0 ? notes : "GL HF")
+  }
+
+  function setStartInventory(inventory, rangesForBuilder) {
+    const sortedItems = new LayoutBuilder({}, {}, {}, {}, {}, {}, {}, {}, {});
+    const {
+      weaponsRange,
+      ammosRange,
+      armorsRange,
+      alchemyRange,
+      shieldsRange,
+      toolsRange,
+      componentsRange,
+      vehiclesRange,
+      itemsRange,
+    } = rangesForBuilder;
+    const ranges = new LayoutBuilder(weaponsRange,
+      ammosRange,
+      armorsRange,
+      alchemyRange,
+      shieldsRange,
+      toolsRange,
+      componentsRange,
+      vehiclesRange,
+      itemsRange);
+
+    inventory.forEach(item => {
+      const currentItem = allItems[item]
+
+      if (currentItem instanceof Weapon) {
+        sortedItems.Weapons[item] = currentItem;
+        return;
+      }
+      if (currentItem instanceof Ammo) {
+        sortedItems.Ammos[item] = currentItem;
+        return;
+      }
+      if (currentItem instanceof Armor) {
+        sortedItems.Armors[item] = currentItem;
+        return;
+      }
+      if (currentItem instanceof Alchemy) {
+        sortedItems.Alchemys[item] = currentItem;
+        return;
+      }
+      if (currentItem instanceof Shield) {
+        sortedItems.Shields[item] = currentItem;
+        return;
+      }
+      if (currentItem instanceof Component) {
+        sortedItems.Components[item] = currentItem;
+        return;
+      }
+      if (currentItem instanceof Vehicle) {
+        sortedItems.Vehicles[item] = currentItem;
+        return;
+      }
+      if (currentItem instanceof Tool) {
+        sortedItems.Tools[item] = currentItem;
+        return;
+      }
+
+      sortedItems.Items[item] = currentItem;
+    })
+
+    for (const category in ranges) {
+      // Не ітеруватись по рейнджу, а взяти старі дані, в них замінити масиви. і буде ляля
+
+      const categoryRange = ranges[category];
+
+      publishItems(categoryRange, sortedItems[category]);
+
+    };
+  }
+
+  function publishItems(rangeA1, item) {
+    const range = mainSheet.getRange(rangeA1);
+    const rangeValues = range.getValues();
+
+    const startIndex = rangeValues.findIndex(row => row.every(cell => cell.length === 0));
+    if (startIndex < 0 ) {
+      return;
     }
 
-    const allItems = getAllItems();
-    const { raceRange, professionRange } = mainVariables;
-    const raceValue = mainSheet.getRange(raceRange).getValue();
-    const professionValue = mainSheet.getRange(professionRange).getValue();
+    const itemValues = Object.values(item);
 
-    if ((raceValue === 'Відьмак' && professionValue !== 'Відьмак')
-        || (raceValue !== 'Відьмак' && professionValue === 'Відьмак')) {
-        throw new Error('Відьмак він і в Темерії відьмак, довбень!!!')
+    for (let i = startIndex; i < itemValues.length; i++) {
+      const currentItem = itemValues[i];
+
+      if (currentItem instanceof Weapon) {
+        rangeValues[i] = [
+          currentItem.name,
+          currentItem.accuracy,
+          currentItem.damage,
+          currentItem.durability,
+          currentItem.hands,
+          currentItem.distance,
+          currentItem.effects,
+          currentItem.stealth,
+          '',
+          currentItem.buff,
+          '',
+          '',
+          currentItem.weight
+        ]
+      } else if (currentItem instanceof Armor || currentItem instanceof Shield) {
+        rangeValues[i] = [
+          currentItem.name,
+          '',
+          currentItem.durability,
+          currentItem.rarity,
+          currentItem.buff,
+          currentItem.effects,
+          '',
+          '',
+          '',
+          currentItem.movesModifier,
+          currentItem.weight,
+          currentItem.price,
+          ''
+        ]
+      } else {
+        rangeValues[i] = [
+          currentItem.name,
+          '',
+          currentItem.notes,
+          '',
+          '',
+          '',
+          '',
+          '',
+          currentItem.price,
+          1,
+          currentItem.weight,
+        ]
+      }
     }
 
-    console.log(`Вітаю, ти ${raceValue}-${professionValue}`);
-
-    setProfessionSpecies(professionValue, mainSheet);
-
-    function setProfessionSpecies(profession, sheet) {
-        const { energy, inventory, learnedSkills, notes } = professions[profession];
-        const { energyRange } = mainVariables;
-
-        sheet.getRange(energyRange).setValue(energy);
-        learnedSkills.forEach(skill => sheet.getRange(skills[skill]).setBackground('#FFC300'));
-
-        console.warn(notes.length > 0 ? notes : 'GL HF');
-    }
+    range.setValues(rangeValues);
+    console.log(`Set to ${rangeA1}`)
+  }
 }
